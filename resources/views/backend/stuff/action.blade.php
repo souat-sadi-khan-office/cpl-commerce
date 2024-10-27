@@ -1,0 +1,13 @@
+@if ($model->id != 1)
+    @if (Auth::guard('admin')->user()->hasPermissionTo('stuff.update'))
+        <a href="{{ route('admin.stuff.edit', $model->id) }}" class="btn btn-soft-warning" data-bs-toggle="tooltip" data-bs-placement="Top" title="Edit">
+            <i class="bi bi-pen"></i>
+        </a>
+    @endif
+
+    @if (Auth::guard('admin')->user()->hasPermissionTo('stuff.delete'))
+        <a href="javascript:;" id="delete_item" data-id ="{{ $model->id }}" data-url="{{ route('admin.stuff.destroy',$model->id) }}" class="btn btn-soft-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+            <i class="bi bi-trash"></i>
+        </a>
+    @endif
+@endif
