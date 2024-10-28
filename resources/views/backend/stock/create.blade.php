@@ -123,23 +123,23 @@
                                     </div>
 
                                     <!-- currency_id -->
-                                    <div class="col-md-4 form-group mb-3">
+                                    {{-- <div class="col-md-4 form-group mb-3">
                                         <label for="currency_id">Currency</label>
                                         <select name="currency_id" id="currency_id" required class="form-control select">
                                             @foreach ($currencies as $currency)
                                                 <option {{ get_settings('system_default_currency') == $currency->id ? 'selected' : '' }} value="{{ $currency->id }}">{{ $currency->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- file -->
-                                    <div class="col-md-4 form-group mb-3">
+                                    <div class="col-md-6 form-group mb-3">
                                         <label for="file">File </label>
                                         <input type="file" name="file" id="file" class="form-control">
                                     </div>
 
                                     <!-- is_selleable -->
-                                    <div class="col-md-4 form-group mb-3">
+                                    <div class="col-md-6 form-group mb-3">
                                         <label for="is_selleable">Is sellable <span class="text-danger">*</span></label>
                                         <select name="is_sellable" id="is_sellable" required class="form-contom select">
                                             <option selected value="1">Yes</option>
@@ -171,9 +171,9 @@
                                 <label for="stock_type">Stock Types <span class="text-danger">*</span></label>
                                 <select name="stock_types" id="stock_types" class="form-control select">
                                     <option selected value="globally">Globally</option>
-                                    <option value="zone_wise">Zone wise</option>
-                                    <option value="country_wise">Country wise</option>
-                                    <option value="city_wise">City Wise</option>
+                                    {{-- <option value="zone_wise">Zone wise</option> --}}
+                                    {{-- <option value="country_wise">Country wise</option> --}}
+                                    {{-- <option value="city_wise">City Wise</option> --}}
                                 </select>
                             </div>
 

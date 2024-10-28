@@ -215,7 +215,7 @@ class ImportController extends Controller
                 $componentArray = explode(', ', $row[7]);
                 if(is_array($componentArray) && count($componentArray) > 0) {
                     foreach($componentArray as $component) {
-                        if($component != '') {
+                        if($component != '' && $brand->id != '') {
                             BrandType::create([
                                 'brand_id' => $brand->id,
                                 'name' => $component,
@@ -227,7 +227,7 @@ class ImportController extends Controller
                 }
             }
             
-            $importedBrands[] = $row[1];
+            $importedBrands[] = $row[0];
         }
 
         return response()->json([

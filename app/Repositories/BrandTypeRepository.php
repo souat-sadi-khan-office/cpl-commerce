@@ -24,7 +24,7 @@ class BrandTypeRepository implements BrandTypeRepositoryInterface
             return Datatables::of($models)
                 ->addIndexColumn()
                 ->editColumn('brand', function ($model) {
-                    return $model->brand->name;
+                    return $model->brand ? $model->brand->name : '';
                 })
                 ->editColumn('status', function ($model) {
                     $checked = $model->status == 1 ? 'checked' : '';

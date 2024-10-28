@@ -241,7 +241,7 @@
 
                                     <!-- quanitiy -->
                                     <div class="col-md-12 form-group mb-3">
-                                        <label for="quantity">Quantity <span class="text-danger">*</span></label>
+                                        <label for="quantity">Stock Quantity <span class="text-danger">*</span></label>
                                         <input type="text" name="quantity" id="quantity" class="form-control number" value="0" required>
                                         <small class="text-muted">Product quanity must be same on the product stock adding table.</small>
                                     </div>
@@ -273,14 +273,14 @@
                                     </div>
 
                                     <!-- currency_id -->
-                                    <div class="col-md-12 form-group mb-3">
+                                    {{-- <div class="col-md-12 form-group mb-3">
                                         <label for="currency_id">Currency</label>
                                         <select name="currency_id" id="currency_id" disabled class="form-control">
                                             @foreach ($currencies as $currency)
                                                 <option {{ get_settings('system_default_currency') == $currency->id ? 'selected' : '' }} value="{{ $currency->id }}">{{ $currency->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- file -->
                                     <div class="col-md-12 form-group mb-3">
@@ -302,7 +302,7 @@
                     </div>
 
                     <!-- Product Stocks -->
-                    <div class="col-md-12 mb-4">
+                    {{-- <div class="col-md-12 mb-4">
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="h5 mb-0">Product Stocks </h2>
@@ -388,7 +388,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Discount -->
                     <div class="col-md-12 mb-4">
@@ -495,7 +495,7 @@
     
                                     <label for="return_deadline">Return Deadline</label>
                                     <div class="col-md-12 input-group mb-3">
-                                        <input type="number" min="0" class="form-control" name="return_deadline" id="return_deadline" disabled>
+                                        <input type="text" min="0" class="form-control number" name="return_deadline" id="return_deadline" disabled>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="basic-addon2">Days</span>
                                         </div>
@@ -515,7 +515,7 @@
                                 <div class="row">
                                     <div class="col-md-12 form-group mb-3">
                                         <label for="low_stock_quantity">Quantity</label>
-                                        <input type="number" min="0" name="low_stock_quantity" id="low_stock_quantity" class="form-control" value="1">
+                                        <input type="text" min="0" name="low_stock_quantity" id="low_stock_quantity" class="number form-control" value="1">
                                     </div>
                                 </div>
                             </div>
@@ -552,7 +552,7 @@
                                 <div class="row">
                                     <label for="est_shipping_time">Estimate Shipping Time</label>
                                     <div class="col-md-12 input-group mb-3">
-                                        <input type="number" min="0" class="form-control" name="est_shipping_time" id="est_shipping_time">
+                                        <input type="text" min="0" class="form-control number" name="est_shipping_time" id="est_shipping_time">
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="basic-addon2">Days</span>
                                         </div>
@@ -574,7 +574,7 @@
                                         <div class="col-md-6 form-group mb-3">
                                             <input type="hidden" name="tax_id[]" value="{{ $tax->id }}">
                                             <label for="taxes_{{ $tax->id }}">{{ $tax->name }}</label>
-                                            <input type="number" min="0" name="taxes[]" id="taxes_{{ $tax->id }}" class="form-control" value="0">
+                                            <input type="text" min="0" name="taxes[]" id="taxes_{{ $tax->id }}" class="form-control number" value="0">
                                         </div>
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="tax_type_{{ $tax->id }}">Type</label>

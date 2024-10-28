@@ -30,7 +30,7 @@ class StockRequest extends FormRequest
             'low_stock_quantity' => 'required|numeric|min:0',
             'purchase_unit_price' => 'nullable|numeric|min:0',
             'purchase_total_price' => 'nullable|numeric|min:0',
-            'currency_id' => 'required|integer|exists:currencies,id',
+            'currency_id' => 'nullable|integer|exists:currencies,id',
             'is_sellable' => 'required|boolean',
             'stock_types' => 'required|string|in:globally,zone_wise,country_wise,city_wise',
             'globally_stock_amount' => 'nullable|integer|min:0',

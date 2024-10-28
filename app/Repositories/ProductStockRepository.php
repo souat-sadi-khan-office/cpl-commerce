@@ -91,7 +91,7 @@ class ProductStockRepository implements ProductStockRepositoryInterface
         $stockPurchase = new StockPurchase;
         $stockPurchase->product_id = $data['product_id'];
         $stockPurchase->admin_id = Auth::guard('admin')->id();
-        $stockPurchase->currency_id = $data['currency_id'];
+        $stockPurchase->currency_id = $data['currency_id'] ?? 7;
         $stockPurchase->sku = $data['sku'];
         $stockPurchase->quantity = $data['quantity'];
         $stockPurchase->unit_price = covert_to_usd($data['unit_price']);
