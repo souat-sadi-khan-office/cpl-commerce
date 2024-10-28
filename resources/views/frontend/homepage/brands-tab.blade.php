@@ -3,7 +3,13 @@
         <div class="item">
             <div class="cl_logo">
                 <a href="{{ $brand['slug'] }}">
-                    <img class="brand-image" src="{{ isset($brand['logo']) ? asset($brand['logo']) : asset('pictures/placeholder.jpg') }}" alt="{{ $brand['name'] }}"/>
+                    @if (isset($brand['logo']))
+                        <img class="brand-image" src="{{ isset($brand['logo']) ? asset($brand['logo']) : asset('pictures/placeholder.jpg') }}" alt="{{ $brand['name'] }}"/>
+                    @else
+                        <div class="brand-name">
+                            {{ $brand['name'] }}
+                        </div>
+                    @endif
                 </a>
             </div>
         </div>

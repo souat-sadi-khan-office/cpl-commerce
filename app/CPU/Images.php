@@ -25,7 +25,7 @@ class Images
             $imageContents = file_get_contents($url);
 
             // Get the original filename and extension
-            $originalName = pathinfo($url, PATHINFO_FILENAME);
+            $originalName = rand(1000, 99999);
             $originalName = str_replace(' ', '-', $originalName);
             $extension = pathinfo($url, PATHINFO_EXTENSION);
 
