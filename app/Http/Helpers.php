@@ -91,6 +91,7 @@ if (!function_exists('get_system_date')) {
         }
     }
 }
+
 if (!function_exists('add_line_breaks')) {
     function add_line_breaks($text, $wordsPerLine = 30) {
         $words = explode(' ', $text);
@@ -174,36 +175,46 @@ if (!function_exists('format_price')) {
 
 function covert_to_usd($price)
 {
-    if ((get_system_default_currency()->code != "USD")) {
-        return ($price / get_exchange_rate(get_system_default_currency()->code));
-    }
     return $price;
 }
-function covert_to_defalut_currency($price)
+
+// function covert_to_usd($price)
+// {
+//     if ((get_system_default_currency()->code != "USD")) {
+//         return ($price / get_exchange_rate(get_system_default_currency()->code));
+//     }
+//     return $price;
+// }
+
+function covert_to_default_currency($price)
 {
-    if ((get_system_default_currency()->code != "USD")) {
-        return ($price * get_exchange_rate(get_system_default_currency()->code));
-    }
     return $price;
 }
+
+// function covert_to_defalut_currency($price)
+// {
+//     if ((get_system_default_currency()->code != "USD")) {
+//         return ($price * get_exchange_rate(get_system_default_currency()->code));
+//     }
+//     return $price;
+// }
 
 // converts currency to home default currency
 if (!function_exists('convert_price')) {
     function convert_price($price)
     {
-        if (Session::has('currency_code') && (Session::get('currency_code') != "USD")) {
-            $currency_code = Session::get('currency_code');
+        // if (Session::has('currency_code') && (Session::get('currency_code') != "USD")) {
+            // $currency_code = Session::get('currency_code');
+            $currency_code = "SGD";
             $exchange_rate = get_exchange_rate($currency_code);
 
             if ($exchange_rate !== null) {
                 $price = floatval($price) * $exchange_rate;
             }
-        }
+        // }
         return $price;
     }
 }
-
-
 
 function fetch_exchange_rate($currency_code)
 {
@@ -218,6 +229,7 @@ function fetch_exchange_rate($currency_code)
 
     return json_decode($response, true);
 }
+
 function store_exchange_rate($currency_code, $rate)
 {
     // Try to find the existing currency entry
@@ -279,81 +291,183 @@ function getProductStock($productId, $qty = 1)
             
             return ['status' => true, 'stock' => $stock->stock];
         break;
-        case 'country_wise':
-            if(!Session::has('user_country')) {
-                return ['status' => false, 'message' => 'Please select your country to buy this product'];
-            }
-
-            if(Session::get('user_country') != '') {
-                $userCountry = Session::get('user_country');
-                
-                $country = Country::where('name', $userCountry)->first();
-                if(!$country) {
-                    return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
-                }
-
-                $countryId = $country->id;
-                $stock = $product->stock->where('in_stock', 1)->where('country_id', $countryId)->first();
-                if(!$stock) {
-                    return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
-                }
-
-                return ['status' => true, 'stock' => $stock->stock];
-            }
+        default: 
+            return ['status' => false];
         break;
-        case 'city_wise':
-            if(!Session::has('user_country')) {
-                return ['status' => false, 'message' => 'Please select your country to buy this product'];
-            }
+        // case 'country_wise':
+        //     if(!Session::has('user_country')) {
+        //         return ['status' => false, 'message' => 'Please select your country to buy this product'];
+        //     }
 
-            // if(Session::get('user_country') != '') {
-            //     $userCountry = Session::get('user_country');
+        //     if(Session::get('user_country') != '') {
+        //         $userCountry = Session::get('user_country');
                 
-            //     $country = Country::where('name', $userCountry)->first();
-            //     if(!$country) {
-            //         return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
-            //     }
+        //         $country = Country::where('name', $userCountry)->first();
+        //         if(!$country) {
+        //             return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+        //         }
 
-            //     $countryId = $country->id;
-            //     $stock = $product->stock->where('in_stock', 1)->where('country_id', $countryId)->first();
-            //     if(!$stock) {
-            //         return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
-            //     }
+        //         $countryId = $country->id;
+        //         $stock = $product->stock->where('in_stock', 1)->where('country_id', $countryId)->first();
+        //         if(!$stock) {
+        //             return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+        //         }
 
-            //     return ['status' => true, 'stock' => $stock->stock];
-            // }
+        //         return ['status' => true, 'stock' => $stock->stock];
+        //     }
+        // break;
+        // case 'city_wise':
+        //     if(!Session::has('user_country')) {
+        //         return ['status' => false, 'message' => 'Please select your country to buy this product'];
+        //     }
 
-            return ['status' => true, 'stock' => 0];
-        break;
+        //     // if(Session::get('user_country') != '') {
+        //     //     $userCountry = Session::get('user_country');
+                
+        //     //     $country = Country::where('name', $userCountry)->first();
+        //     //     if(!$country) {
+        //     //         return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+        //     //     }
+
+        //     //     $countryId = $country->id;
+        //     //     $stock = $product->stock->where('in_stock', 1)->where('country_id', $countryId)->first();
+        //     //     if(!$stock) {
+        //     //         return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+        //     //     }
+
+        //     //     return ['status' => true, 'stock' => $stock->stock];
+        //     // }
+
+        //     return ['status' => true, 'stock' => 0];
+        // break;
     }
 }
+
+// function getProductStock($productId, $qty = 1)
+// {
+//     // getting the product
+//     $product = Product::find($productId);
+//     if(!$product) {
+//         return ['status' => false, 'message' => 'Product Not Found'];
+//         // return response()->json(['status' => false, 'message' => 'Product Not Found']);
+//     }
+
+//     // checking product status
+//     if($product->status == 0) {
+//         return ['status' => false, 'message' => 'Product is currently not in sale'];
+//     }
+
+//     // checking product in_stock status
+//     if($product->in_stock == 0) {
+//         return ['status' => false, 'message' => 'Product is currently out of stock'];
+//     }
+
+//     // getting product stock type
+//     $stockType = $product->stock_types;
+
+//     // checking current stock
+//     if(!$product->details) {
+//         return ['status' => false, 'message' => 'Product Information Not Found'];
+//     }
+
+//     if($product->details->current_stock < $qty) {
+//         return ['status' => false, 'message' => 'This product is not available in the desired quantity or not in stock'];
+//     }
+
+//     // checking product stock
+//     if(!$product->stock) {
+//         return ['status' => false, 'message' => 'Product Stock Not Found'];
+//     }
+
+//     switch($stockType) {
+//         case 'globally':
+
+//             $stock = $product->stock->where('in_stock', 1)->first();
+//             if(!$stock) {
+//                 return ['status' => false, 'message' => 'Product is out of stock'];
+//             }
+            
+//             return ['status' => true, 'stock' => $stock->stock];
+//         break;
+//         case 'country_wise':
+//             if(!Session::has('user_country')) {
+//                 return ['status' => false, 'message' => 'Please select your country to buy this product'];
+//             }
+
+//             if(Session::get('user_country') != '') {
+//                 $userCountry = Session::get('user_country');
+                
+//                 $country = Country::where('name', $userCountry)->first();
+//                 if(!$country) {
+//                     return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+//                 }
+
+//                 $countryId = $country->id;
+//                 $stock = $product->stock->where('in_stock', 1)->where('country_id', $countryId)->first();
+//                 if(!$stock) {
+//                     return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+//                 }
+
+//                 return ['status' => true, 'stock' => $stock->stock];
+//             }
+//         break;
+//         case 'city_wise':
+//             if(!Session::has('user_country')) {
+//                 return ['status' => false, 'message' => 'Please select your country to buy this product'];
+//             }
+
+//             // if(Session::get('user_country') != '') {
+//             //     $userCountry = Session::get('user_country');
+                
+//             //     $country = Country::where('name', $userCountry)->first();
+//             //     if(!$country) {
+//             //         return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+//             //     }
+
+//             //     $countryId = $country->id;
+//             //     $stock = $product->stock->where('in_stock', 1)->where('country_id', $countryId)->first();
+//             //     if(!$stock) {
+//             //         return ['status' => false, 'message' => 'This product has no stock in your country. Please change your country.'];
+//             //     }
+
+//             //     return ['status' => true, 'stock' => $stock->stock];
+//             // }
+
+//             return ['status' => true, 'stock' => 0];
+//         break;
+//     }
+// }
 
 function get_exchange_rate($currency_code)
 {
-    $fetch_time = 3600;
-    if(get_settings('currency_api_fetch_time') > 0) {
-        $fetch_time = get_settings('currency_api_fetch_time');
-    }
-    return Cache::remember("exchange_rate_{$currency_code}", $fetch_time, function () use ($currency_code) {
-        // Check if the currency exists in the database
-        $currency = Currency::where('code', $currency_code)->first();
-
-        // If the currency exists, fetch the exchange rate from the API
-        if ($currency) {
-            $exchange_rate_data = fetch_exchange_rate($currency_code);
-            if ($exchange_rate_data && $exchange_rate_data['meta']['code'] == 200) {
-                $rate = $exchange_rate_data['response']['value'];
-                // Store in the database
-                store_exchange_rate($currency_code, $rate);
-                return $rate; // Return the newly fetched rate
-            }
-        }
-
-        // If currency is not found or API call fails, return null
-        return null;
-    });
+    return 1;
 }
 
+// function get_exchange_rate($currency_code)
+// {
+//     $fetch_time = 3600;
+//     if(get_settings('currency_api_fetch_time') > 0) {
+//         $fetch_time = get_settings('currency_api_fetch_time');
+//     }
+//     return Cache::remember("exchange_rate_{$currency_code}", $fetch_time, function () use ($currency_code) {
+//         // Check if the currency exists in the database
+//         $currency = Currency::where('code', $currency_code)->first();
+
+//         // If the currency exists, fetch the exchange rate from the API
+//         if ($currency) {
+//             $exchange_rate_data = fetch_exchange_rate($currency_code);
+//             if ($exchange_rate_data && $exchange_rate_data['meta']['code'] == 200) {
+//                 $rate = $exchange_rate_data['response']['value'];
+//                 // Store in the database
+//                 store_exchange_rate($currency_code, $rate);
+//                 return $rate; // Return the newly fetched rate
+//             }
+//         }
+
+//         // If currency is not found or API call fails, return null
+//         return null;
+//     });
+// }
 
 // Shows Price on page based on low to high
 if (!function_exists('home_price')) {
@@ -387,6 +501,7 @@ if (!function_exists('home_price')) {
 function encode($value){
     return base64_encode(urlencode(base64_encode($value))); // Encode
 }
+
 function decode($encoded){
     return base64_decode(urldecode(base64_decode($encoded)));
 }
@@ -449,27 +564,45 @@ if (!function_exists('home_discounted_price')) {
 if (!function_exists('currency_symbol')) {
     function currency_symbol($isAdmin = false)
     {
-        if ($isAdmin) {
-            return isset(get_system_default_currency()->symbol) ? get_system_default_currency()->symbol : '$';
-        }
-        if (Session::has('currency_symbol')) {
-            return Session::get('currency_symbol');
-        }
-
-        return isset(get_system_default_currency()->symbol) ? get_system_default_currency()->symbol : '$';
+        return 'SDG';
     }
 }
+
+// if (!function_exists('currency_symbol')) {
+//     function currency_symbol($isAdmin = false)
+//     {
+//         if ($isAdmin) {
+//             return isset(get_system_default_currency()->symbol) ? get_system_default_currency()->symbol : '$';
+//         }
+//         if (Session::has('currency_symbol')) {
+//             return Session::get('currency_symbol');
+//         }
+
+//         return isset(get_system_default_currency()->symbol) ? get_system_default_currency()->symbol : '$';
+//     }
+// }
 
 if (!function_exists('get_system_default_currency')) {
     function get_system_default_currency()
     {
-        $currency = Currency::find(get_settings('system_default_currency'));
-        if (!$currency) {
-            $currency = Currency::where('name', 'US Dollar')->first();
-        }
+        $currency = Currency::find(7);
+        // if (!$currency) {
+        //     $currency = Currency::where('name', 'US Dollar')->first();
+        // }
         return $currency;
     }
 }
+
+// if (!function_exists('get_system_default_currency')) {
+//     function get_system_default_currency()
+//     {
+//         $currency = Currency::find(get_settings('system_default_currency'));
+//         if (!$currency) {
+//             $currency = Currency::where('name', 'US Dollar')->first();
+//         }
+//         return $currency;
+//     }
+// }
 
 if (!function_exists('get_immediate_children_ids')) {
     function get_immediate_children_ids($id, $with_trashed = false)

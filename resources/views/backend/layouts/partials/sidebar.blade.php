@@ -21,6 +21,7 @@
                     </a>
                 </li>
 
+                <!-- Categories -->
                 <li class="nav-item {{ Request::segment(2) == 'categories' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'categories' ? ' active' : '' }}">
                         <i class="nav-icon bi bi-columns-gap"></i>
@@ -56,8 +57,9 @@
 
                 </li>
 
+                <!-- Specification Keys -->
                 <li class="nav-item {{ Request::segment(3) == 'specification' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(3) == 'specification' ? ' active' : '' }}">
+                    <a href="javascript:;" class="nav-link {{ Request::segment(3) == 'specification' ? ' active' : '' }}">
                         <i class="nav-icon bi bi-gear-wide-connected"></i>
                         <p>
                             Specification Keys
@@ -65,8 +67,8 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="{{ route('admin.category.specification.key.public') }}"
-                                class="nav-link {{ Request::is('admin/categories/specification/keys/public') ? ' active' : '' }}">
+                        <li class="nav-item"> 
+                            <a href="{{ route('admin.category.specification.key.public') }}" class="nav-link {{ Request::is('admin/categories/specification/keys/public') ? ' active' : '' }}">
                                 <i class="nav-icon bi bi-command"></i>
                                 <p>Public Keys</p>
                             </a>
@@ -338,13 +340,13 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.website.header') }}"
                             class="nav-link {{ Request::is('admin/website/header') ? ' active' : '' }}">
                             <i class="nav-icon bi bi-window-fullscreen"></i>
                             <p>Header</p>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a href="{{ route('admin.website.footer') }}"
@@ -406,13 +408,13 @@
                             </a> 
                         </li> --}}
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.currency.index') }}"
                             class="nav-link {{ Request::is('admin/currency') ? ' active' : '' }}">
                             <i class="nav-icon bi bi-currency-exchange"></i>
                             <p>Currency</p>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a href="{{ route('admin.tax.index') }}"
@@ -452,33 +454,33 @@
                     </li>
 
                     {{-- @if (Auth::guard('admin')->user()->hasPermissionTo('zone.view')) --}}
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.zone.index') }}"
                             class="nav-link {{ Request::is('admin/zone') ? ' active' : '' }}">
                             <i class="nav-icon bi bi-radar"></i>
                             <p>Zones</p>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- @endif --}}
 
                     {{-- @if (Auth::guard('admin')->user()->hasPermissionTo('country.view')) --}}
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.country.index') }}"
                             class="nav-link {{ Request::is('admin/country') ? ' active' : '' }}">
                             <i class="nav-icon bi bi-map"></i>
                             <p>Countries</p>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- @endif --}}
 
                     {{-- @if (Auth::guard('admin')->user()->hasPermissionTo('city.view')) --}}
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.city.index') }}"
                             class="nav-link {{ Request::is('admin/city') ? ' active' : '' }}">
                             <i class="nav-icon bi bi-pin-map"></i>
                             <p>Cities</p>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- @endif --}}
                 </ul>
             </li>
@@ -528,7 +530,7 @@
             </li>
             {{-- @endif --}}
 
-
+            <!-- Bulk Image Upload -->
             <li class="nav-item">
                 <a href="{{ route('admin.image.index') }}"
                     class="nav-link {{ Request::is('admin/image-upload') ? ' active' : '' }}">

@@ -58,7 +58,7 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function createCustomer($data)
     {
         $brand = User::create([
-            'currency_id' => $data->currency_id,
+            'currency_id' => $data->currency_id ?? 7,
             'name' => $data->name,
             'email' => $data->email,
             'avatar' => "user.png",
@@ -74,7 +74,7 @@ class CustomerRepository implements CustomerRepositoryInterface
     {
         $customer = User::findOrFail($id);
         $customer->name = $data->name;
-        $customer->currency_id = $data->currency_id;
+        $customer->currency_id = $data->currency_id ?? 7;
         $customer->status = $data->status;
         $customer->email = $data->email;
         if($data->password != ''){

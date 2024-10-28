@@ -19,7 +19,6 @@
                             <li class="breadcrumb-item active" aria-current="page"> Sub Category Add</li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -104,15 +103,18 @@
                             @include('backend.components.descriptionInput')
 
                             <div class="row">
-                                <div class="mb-3 col-6">
+                                <div class="mb-3 col-12">
                                     <label for="meta_title" class="form-label">Meta Title <span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="meta_title" class="form-control" required>
                                 </div>
-                                <div class="mb-3 col-6">
-                                    <label for="meta_keyword" class="form-label">Meta Keyword <span class="text-danger"> Use
-                                            Comma " , " *</span></label>
-                                    <input type="text" name="meta_keyword" class="form-control" required>
+                                <div class="mb-3 col-12">
+                                    <label for="meta_keyword" class="form-label">
+                                        Meta Keyword 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea name="meta_keyword" id="meta_keyword" cols="30" rows="3" class="form-control" required></textarea>
+                                    <span class="text-danger"> Use Comma " , " *</span>
                                 </div>
                             </div>
 
@@ -124,16 +126,15 @@
 
                             <div class="row">
                                 <div class="mb-3 col-6">
-                                    <label for="meta_article_tag" class="form-label">Meta Article Tag <span
-                                            class="text-danger"> Use Comma " , "</span></label>
-                                    <input type="text" name="meta_article_tag" class="form-control">
+                                    <label for="meta_article_tag" class="form-label">Meta Article Tag</label>
+                                    <textarea name="meta_article_tag" id="meta_article_tag" cols="30" rows="3" class="form-control"></textarea>
                                 </div>
                                 <div class="mb-3 col-6">
-                                    <label for="meta_script_tag" class="form-label">Meta Script Tag <span
-                                            class="text-danger"> Use Comma " , "</span></label>
-                                    <input type="text" name="meta_script_tag" class="form-control">
+                                    <label for="meta_script_tag" class="form-label">Meta Script Tag </label>
+                                    <textarea name="meta_script_tag" id="meta_script_tag" cols="30" rows="3" class="form-control"></textarea>
                                 </div>
                             </div>
+
                             {{-- <input type="file" name="image" class="form-control"> --}}
                             <div class="row">
                                 <div class="col-4 mt-4 p-5">
@@ -158,8 +159,6 @@
                                     @include('backend.components.imageInput')
 
                                 </div>
-
-
                             </div>
 
                             <div id="preview">
@@ -167,12 +166,10 @@
                             </div>
 
                             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-                            <button type="button" id="submitting" class="btn btn-warning d-none"
+                            <button type="button" id="submitting" class="btn btn-warning" style="display: none;"
                                 disabled>Submitting..</button>
                         </form>
                     </div>
-
-
                 </div>
             </div>
         </div>

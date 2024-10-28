@@ -72,12 +72,11 @@ class ConfigurationSettingController extends Controller
             }
 
             $data = array();
-            if($key == 'header_menu_labels' || $key == 'header_menu_links' || $key == 'footer_menu_one_labels' || $key == 'footer_menu_one_links' || $key == 'footer_menu_two_labels' || $key == 'footer_menu_two_links' ) {
+            if($key == 'header_menu_labels' || $key == 'header_menu_links' || $key == 'footer_menu_one_labels' || $key == 'footer_menu_one_links' || $key == 'footer_menu_two_labels' || $key == 'footer_menu_two_links' || $key == 'footer_menu_three_labels' || $key == 'footer_menu_three_links' ) {
                 $data['value'] = json_encode($value);
-            }elseif($key == 'system_default_delivery_charge') {
+            } elseif ($key == 'system_default_delivery_charge') {
                 $data['value'] = covert_to_usd($value);
-            }
-            else {
+            } else {
                 $data['value'] = $value;
             }
 

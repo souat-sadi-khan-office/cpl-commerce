@@ -23,7 +23,7 @@ class CustomerRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'currency_id' => 'required|numeric',
+            'currency_id' => 'nullable|numeric',
             'status' => 'required',
             'email' => 'required|email|max:255',
         ];

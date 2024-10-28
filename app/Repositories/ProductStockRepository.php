@@ -40,10 +40,10 @@ class ProductStockRepository implements ProductStockRepositoryInterface
                 return '<div class="form-check form-switch"><input data-url="' . route('admin.stock.status', $model->id) . '" class="form-check-input" type="checkbox" role="switch" name="status" id="status' . $model->id . '" ' . $checked . ' data-id="' . $model->id . '"></div>';
             })
             ->editColumn('unit_price', function ($model) {
-                return get_system_default_currency()->symbol.covert_to_defalut_currency($model->unit_price);
+                return get_system_default_currency()->symbol.covert_to_default_currency($model->unit_price);
             })
             ->editColumn('total_price', function ($model) {
-                return get_system_default_currency()->symbol.covert_to_defalut_currency($model->quantity * $model->unit_price);
+                return get_system_default_currency()->symbol.covert_to_default_currency($model->quantity * $model->unit_price);
             })
             ->addColumn('action', function ($model) {
                 return view('backend.stock.action', compact('model'));

@@ -146,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header">
                             <h2 class="h5 mb-0">System Default Currency</h2>
@@ -187,7 +187,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col-md-12">
                     <div class="card mb-4">
@@ -202,9 +202,9 @@
                                     <div class="col-md-12 form-group mb-3">
                                         <label for="system_default_delivery_charge">System Default Delivery Charge <span
                                                 class="text-danger">*</span></label>
-                                        <input type="number" name="system_default_delivery_charge"
-                                            value="{{ round(covert_to_defalut_currency(get_settings('system_default_delivery_charge'))) }}"
-                                            class="form-control">
+                                        <input type="text" name="system_default_delivery_charge"
+                                            value="{{ round(covert_to_default_currency(get_settings('system_default_delivery_charge'))) }}"
+                                            class="form-control number">
                                     </div>
 
                                     <div class="col-md-12 form-group text-end">
@@ -285,7 +285,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-12 form-group mb-3">
+                                    {{-- <div class="col-md-12 form-group mb-3">
                                         <label for="currency_api_fetch_time">Exchange Rate Refresh Time (API)</label>
                                         <select name="currency_api_fetch_time" id="currency_api_fetch_time"
                                             class="form-control select" data-placeholder="Select Number">
@@ -306,7 +306,7 @@
                                                 {{ get_settings('currency_api_fetch_time') == 86400 ? 'selected' : '' }}
                                                 value="86400">Per Day</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-12 form-group text-end">
                                         <button type="submit" id="submit_two" class="btn btn-soft-success">

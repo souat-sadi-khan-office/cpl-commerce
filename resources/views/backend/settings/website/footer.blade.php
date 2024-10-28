@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mt-3">
+        <div class="col-md-4 mt-3">
             <div class="card mb-4">
                 <div class="card-header">
                     <h2 class="h5 mb-0">Link Widget One</h2>
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mt-3">
+        <div class="col-md-4 mt-3">
             <div class="card mb-4">
                 <div class="card-header">
                     <h2 class="h5 mb-0">Link Widget Two</h2>
@@ -145,6 +145,54 @@
                             <button
                                 type="button"
                                 class="btn mt-4 btn-primary btn-sm add-more-two">
+                                Add New
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="h5 mb-0">Link Widget Three</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 form-group mb-3">
+                            <label for="footer_menu_three_label_text">Title</label>
+                            <input type="text" name="footer_menu_three_label_text" id="footer_menu_three_label_text" class="form-control" value="{{ get_settings('footer_menu_three_label_text') }}">
+                        </div>
+                        <div class="col-md-12 form-group mb-3">
+                            <div class="footer-nav-menu-three">
+                                @if (get_settings('footer_menu_three_labels') != null)
+                                    @php
+                                        $rand = rand(10000, 1000000);
+                                    @endphp
+                                    @foreach ( json_decode(get_settings('footer_menu_three_labels')) as $key => $value)
+                                        <div class="row mt-3" id="data-{{ $rand}}">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Label" name="footer_menu_three_labels[]" required value="{{ $value }}">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Link with http:// or https://" name="footer_menu_three_links[]" value="{{ json_decode(App\Models\ConfigurationSetting::where('type', 'footer_menu_three_links')->first()->value, true)[$key] }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger remove-parent" data-parent="{{ $rand }}">
+                                                    <i class="bi bi-x"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <button
+                                type="button"
+                                class="btn mt-4 btn-primary btn-sm add-more-three">
                                 Add New
                             </button>
                         </div>
@@ -240,14 +288,10 @@
         </div>
     </form>
 </div>
-
-{{-- <div class="col-md-12 form-group text-end">
-                            
-                        </div> --}}
 @endsection
 @push('script')
     <script src="{{ asset('backend/assets/js/dropify.min.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.9.2/ckeditor.js"></script>    
     <script>
         _componentSelect();
 
@@ -419,6 +463,33 @@
         });
 
         $(document).on('click', '.remove-parent-two', function() {
+            let id = $(this).data('parent');
+            $('#data-'+id).remove();
+        });
+        
+        $(document).on('click', '.add-more-three', function() {
+            let id = Math.floor((Math.random() * 10000000) + 1);
+            let content = `<div class="row mt-3" id="data-`+ id +`">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="text" required class="form-control" placeholder="Label" name="footer_menu_three_labels[]">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="text" required class="form-control" placeholder="Link with http:// or https://" name="footer_menu_three_links[]">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger remove-parent-three" data-parent="`+ id+`">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>`;
+            $('.footer-nav-menu-two').append(content);
+        });
+
+        $(document).on('click', '.remove-parent-three', function() {
             let id = $(this).data('parent');
             $('#data-'+id).remove();
         });

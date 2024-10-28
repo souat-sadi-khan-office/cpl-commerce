@@ -14,25 +14,39 @@ use App\Repositories\Interface\AuthRepositoryInterface;
 
 class AuthRepository implements AuthRepositoryInterface
 {
-    public function login( $request, $guard)
+    public function login($request, $guard)
     {
-        $credentials = $request->only('email','password');
-        
-        if (Auth::guard($guard)->attempt($credentials)) {
-            if(Auth::guard('customer')->check()) {
-                $cartItems = Cart::where('ip', $request->ip())->get();
-                if($cartItems) {
-                    foreach ($cartItems as $item) {
-                        $item->user_id = Auth::guard('customer')->user()->id;
-                        $item->save();
+        $credentials = $request->only('email', 'password');
+
+        if($guard == 'customer') {
+            $user = User::select('id', 'email', 'status')->where('email', $credentials['email'])->first();
+
+            if ($user->status) {
+                if (Auth::guard($guard)->attempt($credentials)) {
+                    if(Auth::guard('customer')->check()) {
+                        $cartItems = Cart::where('ip', $request->ip())->get();
+                        if($cartItems) {
+                            foreach ($cartItems as $item) {
+                                $item->user_id = Auth::guard('customer')->user()->id;
+                                $item->save();
+                            }
+                        }
                     }
+        
+                    return $guard;
                 }
+
+                return 0;
             }
 
-            return $guard;
-        }
+            return ['status' => false, 'message' => 'Your account is not active'];
+        } else {
+            if (Auth::guard($guard)->attempt($credentials)) {
+                return $guard;
+            }
 
-        return 0;
+            return 0;
+        }
     }
 
     public function registerUser($request)

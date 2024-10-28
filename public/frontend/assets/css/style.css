@@ -8380,7 +8380,8 @@ select option:hover {
 }
 
 .description {
-	margin: 20px 0 30px
+	margin: 20px 0 30px;
+	padding: 30px;
 }
 
 .description .bg_white {

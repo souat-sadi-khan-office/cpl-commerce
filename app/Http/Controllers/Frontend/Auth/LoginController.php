@@ -82,6 +82,13 @@ class LoginController extends Controller
     {
         $guard = $this->authRepository->login($request, 'customer');
 
+        if(isset($guard['status']) && $guard['status'] === false) {
+            return response()->json([
+                'status' => false, 
+                'message' => $guard['message']
+            ]);
+        }
+
         if ($guard) {
             $request->session()->regenerate();
             return response()->json([

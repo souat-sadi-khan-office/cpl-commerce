@@ -702,7 +702,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                 return '
                     <b>Number of Sale</b>: ' . $numberOfSale . ' <br> 
-                    <b>Base Price</b>:' . get_system_default_currency()->symbol . covert_to_defalut_currency($model->unit_price) . '<br>
+                    <b>Base Price</b>:' . get_system_default_currency()->symbol . covert_to_default_currency($model->unit_price) . '<br>
                     <b>Rating</b>: ' . $averageRating;
             })
             ->editColumn('created_by', function ($model) {
@@ -760,7 +760,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                 return '
                     <b>Number of Sale</b>: ' . $numberOfSale . ' <br> 
-                    <b>Base Price</b>:' . get_system_default_currency()->symbol . covert_to_defalut_currency($model->unit_price) . '<br>
+                    <b>Base Price</b>:' . get_system_default_currency()->symbol . covert_to_default_currency($model->unit_price) . '<br>
                     <b>Rating</b>: ' . $averageRating;
             })
             ->editColumn('created_by', function ($model) {

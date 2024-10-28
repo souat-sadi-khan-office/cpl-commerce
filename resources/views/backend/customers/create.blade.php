@@ -8,7 +8,7 @@
     <form action="{{ route("admin.customer.store") }}" method="POST" class="ajax-form">
         <div class="row">
 
-            <div class="col-md-12 form-group">
+            {{-- <div class="col-md-12 form-group">
                 <label for="currency_id">Currency <span class="text-danger">*</span></label>
                 <select name="currency_id" id="currency_id" class="form-control select" data-placeholder="Select One" required data-parsley-errors-container="#currency_id_error">
                     <option value="">Select One</option>
@@ -17,7 +17,7 @@
                     @endforeach
                 </select>
                 <span id="currency_id_error"></span>
-            </div>
+            </div> --}}
 
             <div class="col-md-12 mt-3 form-group">
                 <label for="name">Name <span class="text-danger">*</span></label>

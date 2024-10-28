@@ -10,13 +10,9 @@
                 filebrowserUploadMethod: 'form',
                 height: editorHeight ? editorHeight : '',
                 startupFocus: startupFocus == 1 ? true : false,
+                extraAllowedContent: 'p(myClass); div(myClass)',
+                allowedContent: true,
                 removePlugins: 'exportpdf',
-                toolbar: [
-                    ['Format', 'Font', 'FontSize', '-'],
-                    ['Bold', 'Italic', 'Underline', 'Table', '-', 'NumberedList', 'BulletedList', '-'],
-                    ["JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
-                    ['Link', 'Blockquote', 'Maximize', 'Image', 'TextColor', '-', 'Source']
-                ],
                 contentsCss: [
                     'https://cdn.ckeditor.com/4.16.0/standard-all/contents.css',
                     '/backend/assets/css/ck-editor-custom.css'
