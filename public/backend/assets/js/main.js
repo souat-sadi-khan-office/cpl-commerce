@@ -361,8 +361,8 @@ var _formValidation = function () {
             url: submit_url,
             type: 'POST',
             data: formData,
-            contentType: false, // The content type used when sending data to the server.
-            cache: false, // To unable request pages to be cached
+            contentType: false,
+            cache: false,
             processData: false,
             dataType: 'JSON',
             success: function (data) {
@@ -374,12 +374,14 @@ var _formValidation = function () {
                                 toastr.error(message);
                             });
                         }
-                    } else if (data.errors) {
+                    } else {
+                        toastr.error(data.message);
+                    }
+
+                    if (data.errors) {
                         for (const [key, message] of Object.entries(data.errors)) {
                             toastr.error(message);
                         }
-                    } else {
-                        toastr.error(data.message);
                     }
                 } else {
                     toastr.success(data.message);

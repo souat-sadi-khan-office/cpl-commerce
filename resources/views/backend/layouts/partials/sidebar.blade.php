@@ -162,6 +162,35 @@
                 </ul>
             </li>
 
+            <!-- Brands -->
+            <li
+                class="nav-item {{ Request::is('admin/brand*') || Request::is('admin/brand-type') ? 'menu-open' : '' }}">
+                <a href="javascript:;" class="nav-link">
+                    <i class="nav-icon bi bi-ubuntu"></i>
+                    <p>
+                        Brands
+                        <i class="nav-arrow bi bi-chevron-right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.brand.index') }}"
+                            class="nav-link {{ Request::is('admin/brand') || Request::is('admin/brand/*') ? ' active' : '' }}">
+                            <i class="nav-icon bi bi-unity"></i>
+                            <p>Brand</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.brand-type.index') }}"
+                            class="nav-link {{ Request::is('admin/brand-type') ? ' active' : '' }}">
+                            <i class="nav-icon bi bi-strava"></i>
+                            <p>Brand Types</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <!-- Bulk Import -->
             <li class="nav-item {{ Request::is('admin/import*') ? 'menu-open' : '' }}">
                 <a href="javascript:;" class="nav-link">
@@ -301,34 +330,6 @@
                 </ul>
             </li>
 
-            <!-- Brands -->
-            <li
-                class="nav-item {{ Request::is('admin/brand*') || Request::is('admin/brand-type') ? 'menu-open' : '' }}">
-                <a href="javascript:;" class="nav-link">
-                    <i class="nav-icon bi bi-ubuntu"></i>
-                    <p>
-                        Brands
-                        <i class="nav-arrow bi bi-chevron-right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('admin.brand.index') }}"
-                            class="nav-link {{ Request::is('admin/brand') || Request::is('admin/brand/*') ? ' active' : '' }}">
-                            <i class="nav-icon bi bi-unity"></i>
-                            <p>Brand</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('admin.brand-type.index') }}"
-                            class="nav-link {{ Request::is('admin/brand-type') ? ' active' : '' }}">
-                            <i class="nav-icon bi bi-strava"></i>
-                            <p>Brand Types</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
             <!-- Website Setup -->
             <li class="nav-item {{ Request::is('admin/website*') || Request::is('admin/page*') ? 'menu-open' : '' }}">

@@ -52,6 +52,13 @@ class ImportController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray();
 
+        if(is_array($rows) && count($rows) > 201) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Maximum 200 column at a single time',
+            ]);
+        }
+
         $importedCategories = [];
         $errors = [];
 
@@ -59,6 +66,10 @@ class ImportController extends Controller
 
         foreach ($rows as $key => $row) {
             if ($key == 0) {
+                continue;
+            }
+
+            if($row[1] == '') {
                 continue;
             }
 
@@ -74,7 +85,6 @@ class ImportController extends Controller
                 $parentId = null;
             }
 
-
             $slug = $row[2];
             $request->slug = $slug;
             $slugExists = $helperController->checkSlug($request);
@@ -84,9 +94,10 @@ class ImportController extends Controller
                 $slug = $row[2] . '-'. rand(10000, 1000000);
             }
 
-            $imageUrl = $row[2] ?? null;
+            $imagePath = null;
+            $imageUrl = $row[11] ?? null;
             if ($imageUrl) {
-                $imagePath = Images::uploadImageFromUrl($imageUrl, 'brands', $row[1]);
+                $imagePath = Images::uploadImageFromUrl($imageUrl, 'categories', $row[1]);
                 if (!$imagePath) {
                     $errors[] = "Image upload failed for row $key.";
                     continue;
@@ -94,28 +105,32 @@ class ImportController extends Controller
             }
 
             $category = Category::create([
-                'parent_id' => $parentId,
-                'admin_id' => Auth::guard('admin')->user()->id,
-                'name' => $row[1],
-                'slug' => $slug,
-                'photo' => $imagePath ?? null,
-                'icon' => "<i class=\"fi-rr-dashboard-monitor\"></i>",
-                'header' => $row[3] ?? $row[1],
+                'parent_id'         => $parentId,
+                'admin_id'          => Auth::guard('admin')->user()->id,
+                'name'              => $row[1],
+                'slug'              => $slug,
+                'photo'             => $imagePath ?? null,
+                'icon'              => "<i class=\"fi-rr-dashboard-monitor\"></i>",
+                'description'       => $row[1],
+                'header'            => $row[3] ?? $row[1],
                 'short_description' => $row[4] ?? $row[1],
-                'description' => $row[5] ?? $row[1],
-                'site_title' => $row[6] ?? $row[1],
-                'meta_title' => $row[7] ?? $row[1],
-                'meta_keyword' => $row[8] ?? $row[1],
-                'meta_description' => $row[9] ?? $row[1],
-                'meta_article_tag' => $row[10] ?? null,
-                'meta_script_tag' => $row[11] ?? null,
-                'status' => $row[12] == 'active' ? 1 : 0,
-                'is_featured' => $row[13] == 'active' ? 1 : 0,
+                'site_title'        => $row[5] ?? $row[1],
+                'meta_title'        => $row[6] ?? $row[1],
+                'meta_keyword'      => $row[7] ?? $row[1],
+                'meta_description'  => $row[8] ?? $row[1],
+                'meta_article_tag'  => null,
+                'meta_script_tag'   => null,
+                'status'            => $row[9] ?? 0,
+                'is_featured'       => $row[10] ?? 0,
             ]);
+
+            $importedCategories[] = $row[1];
         }
 
         return response()->json([
-            'success' => true,
+            'load' => true,
+            'status' => true,
+            'message' => 'Categories Imported Successfully',
             'imported' => $importedCategories,
             'errors' => $errors,
         ]);
