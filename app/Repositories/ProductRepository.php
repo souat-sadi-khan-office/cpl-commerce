@@ -266,9 +266,20 @@ class ProductRepository implements ProductRepositoryInterface
                 ->when(isset($request->out_of_stock) && $request->out_of_stock == true && !isset($request->in_stock), function ($q) {
                     $q->where('in_stock', 0);
                 })
+                ->when(isset($request->pre_order) && $request->pre_order == true, function ($q) {
+                    $q->where('stage', 'pre-order');
+                })
+                ->when(isset($request->up_coming) && $request->up_coming == true, function ($q) {
+                    $q->where('stage', 'upcoming');
+                })
                 ->when(isset($request->brands) && count($request->brands) > 0, function ($q) use ($request) {
                     $q->whereHas('brand', function ($query) use ($request) {
                         $query->whereIn('id', $request->brands);
+                    });
+                })
+                ->when(isset($request->specifications) && count($request->specifications) > 0, function ($q) use ($request) {
+                    $q->whereHas('specifications', function($specificationQuery) use ($request) {
+                        $specificationQuery->whereIn('attribute_id', $request->specifications);
                     });
                 })
                 ->with(['ratings' => function ($query) {

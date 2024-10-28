@@ -186,25 +186,25 @@
                                             <ul class="list_brand">
                                                 <li>
                                                     <div class="custome-checkbox">
-                                                        <input class="form-check-input form-check" type="checkbox" name="in_stock_availability" id="in_stock_availability" value="">
+                                                        <input class="form-check-input form-check-global form-check" type="checkbox" name="in_stock_availability" id="in_stock_availability" value="">
                                                         <label class="form-check-label" for="in_stock_availability"><span>In Stock</span></label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custome-checkbox">
-                                                        <input class="form-check-input form-check" type="checkbox" name="out_of_stock_availability" id="out_of_stock_availability" value="">
+                                                        <input class="form-check-input form-check-global form-check" type="checkbox" name="out_of_stock_availability" id="out_of_stock_availability" value="">
                                                         <label class="form-check-label" for="out_of_stock_availability"><span>Out of Stock</span></label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custome-checkbox">
-                                                        <input class="form-check-input form-check" type="checkbox" name="pre_order_availability" id="pre_order_availability" value="">
+                                                        <input class="form-check-input form-check-global form-check" type="checkbox" name="pre_order_availability" id="pre_order_availability" value="">
                                                         <label class="form-check-label" for="pre_order_availability"><span>Pre Order</span></label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custome-checkbox">
-                                                        <input class="form-check-input form-check-input" type="checkbox" name="up_coming_availability" id="up_coming_availability" value="">
+                                                        <input class="form-check-input form-check-global form-check" type="checkbox" name="up_coming_availability" id="up_coming_availability" value="">
                                                         <label class="form-check-label" for="up_coming_availability"><span>Up Comming</span></label>
                                                     </div>
                                                 </li>
@@ -291,6 +291,10 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            // $('.form-check-global').on('change', function() {
+            //     filterProducts();
+            // });
+            
             $('.form-check, .custom_select select').on('change', function() {
                 filterProducts();
             });
@@ -332,7 +336,7 @@
                 // AJAX POST Request
                 var catId = $('#routeCID').val();
 
-                $('.overlay').addClass('open');
+                $('.overlay-loader').show();
                 $.ajax({
                     url: '{{ route('filter.products')}}',
                     method: 'POST',
@@ -340,8 +344,8 @@
                         _token: '{{ csrf_token() }}',
                         in_stock: in_stock == true ? in_stock : null,
                         out_of_stock: out_of_stock == true ? out_of_stock : null,
-                        pre_order: pre_order,
-                        up_coming: up_coming,
+                        pre_order: pre_order == true ? pre_order : null,
+                        up_coming: up_coming == true ? pre_order : null,
                         category_id:catId,
                         sortBy: sortBy,
                         brands: brands,
@@ -349,7 +353,7 @@
                         showData: showData
                     },
                     success: function(response) {
-                        $('.overlay').removeClass('open');
+                        $('.overlay-loader').hide();
                         $('#product-area').html(response);
                     },
                     error: function(xhr, status, error) {
