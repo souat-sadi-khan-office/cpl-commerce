@@ -115,6 +115,11 @@
                                 </li>
                             @endforeach
                             <li>
+                                <a class="nav-link nav_item" href="{{ route('laptop.offer') }}">
+                                    Laptop Offer
+                                </a>
+                            </li>
+                            <li>
                                 <a class="nav-link nav_item" href="contact.html">
                                     Contact Us
                                 </a>

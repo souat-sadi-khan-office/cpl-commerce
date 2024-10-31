@@ -226,7 +226,7 @@
                                         <div class="accordion-body scrollbar">
                                             <ul class="list_brand">
                                                 @php
-                                                    $brands = App\Models\Brand::select('id','name', 'slug')->where('status', 1)->orderBy('name', 'ASC')->get();
+                                                    $brands = App\Models\Brand::select('id','name', 'slug')->where('status', 1)->where('is_featured', 1)->orderBy('name', 'ASC')->get();
                                                 @endphp
                                                 @foreach ($brands as $brand)
                                                     <li>

@@ -11,12 +11,14 @@ use App\Http\Controllers\Frontend\PhoneBookController;
 use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\LaptopFinderController;
 
 // Route::get('/', function () {
 //     return view('frontend.homepage.index');
 // })->name('home');
 
-Route::get('laptop-buying-guide', [LoginController::class, 'laptopBuyingGuide'])->name('laptop-buying-guide');
+Route::get('laptop-buying-guide', [LaptopFinderController::class, 'index'])->name('laptop-buying-guide');
+Route::get('laptop-offer', [LaptopFinderController::class, 'index'])->name('laptop.offer');
 Route::get('pc-builder', [LoginController::class, 'pcBuilder'])->name('pc-builder');
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('forget-password', [LoginController::class, 'forgotPassword'])->name('forget-password');
